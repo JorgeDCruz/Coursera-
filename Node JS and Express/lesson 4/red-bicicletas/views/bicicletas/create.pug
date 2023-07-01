@@ -1,0 +1,24 @@
+extends ../layout
+
+block content
+    h1 Nueva Bicicleta
+    form(action= "/bicicletas/create" method= "post")
+        label(for="id") ID:
+        input#id(type="text" name="id")
+        br 
+        label(for="color") Color:
+        input#color(type="text" name="color")
+        br
+        label(for="modelo") Modelo:
+        input#modelo(type="text" name="modelo")
+        br
+        label(for="lat") Latitud:
+        input#modelo(type="text" name="lat")
+        br
+        label(for="lng") Longitud:
+        input#modelo(type="text" name="lng")
+        br
+        br
+        input.btn(type="submit" value="Crear")
+    br
+    a(href="/bicicletas") volver
