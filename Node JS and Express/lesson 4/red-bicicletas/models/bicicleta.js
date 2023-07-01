@@ -30,7 +30,7 @@ Bicicleta.findById = function(given_id){
 
 Bicicleta.removeById = function(given_id){
     for(let i = 0; i < Bicicleta.allBicis.length; i++){
-        if(Bicicleta.allBicis[i].id === given_id){
+        if(Bicicleta.allBicis[i].id == given_id){
             Bicicleta.allBicis.splice(i, 1);
             break;
         }

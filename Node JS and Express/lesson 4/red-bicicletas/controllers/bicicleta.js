@@ -19,7 +19,7 @@ exports.bicicleta_create_post = (req, res) => {
 }
 
 exports.bicicleta_delete_post = (req, res) => {
-    Bicicleta.removeById(req.params.id);
+    Bicicleta.removeById(req.body.id);
     res.redirect('/bicicletas');
 }
 
