@@ -3,8 +3,15 @@
 
 
 ## Ejecución:
-- "npm i"
-- "npm run dev"
+*Install all dependencies*
+``` bash
+npm i
+``` 
+
+*Run project in developer mode*
+``` bash
+npm run dev
+```
 
 
 ## Testing with Jasmine
@@ -22,7 +29,7 @@ npm install –-save-dev jasmine
 
 *Module initialization:*
 ``` bash
-c:\>node node_modules/Jasmine/bin/Jasmine init 
+c:\> node node_modules/Jasmine/bin/Jasmine init 
 ```
 
 *Script initialization:* 
