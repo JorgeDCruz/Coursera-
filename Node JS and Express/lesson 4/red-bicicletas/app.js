@@ -8,8 +8,24 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 const bicicletaRouter = require('./routes/bicicletas');
 const bicicletasAPIrouter = require('./routes/api/bicicletas');
-
 var app = express();
+
+
+require('dotenv').config();
+
+var mongoose = require('mongoose');
+mongoose.connect(process.env.MONGO_CONNECTION_STRING, { useNewUrlParser: true});
+mongoose.Promise = global.Promise;
+const db = mongoose.connection;
+
+db.once('open', () => {
+  console.log('Connected to database');
+});
+
+db.on('error', (err) => {
+  console.error('MongoDB connection error:', err);
+});
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
