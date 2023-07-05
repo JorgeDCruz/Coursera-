@@ -26,13 +26,21 @@ bicicletaSchema.methods.toString = function(){
     return 'code: ' + this.code + '\ncolor: ' + this.color;
 };
 
-
-bicicletaSchema.statics.allBicis = function(cb){
-    return this.find({}, cb)
+//Las consulats básicas de Mongoose ya no aceptan callbacks, la alternativa es utilizar el "then"
+bicicletaSchema.statics.allBicis = function(){
+    return this.find({})
 }
 
-bicicletaSchema.statics.add = function(aBici, done){
+bicicletaSchema.statics.add = function(aBici){
     return this.create(aBici);
+}
+
+bicicletaSchema.statics.findByCode = function(aCode){
+    return this.findOne({code: aCode});
+}
+
+bicicletaSchema.statics.removeByCode = function(aCode){
+    return this.deleteOne({code: aCode});
 }
 
 module.exports = mongoose.model('Bicicleta', bicicletaSchema);

@@ -1,34 +1,36 @@
-const Bicicleta = require('..//../models/bicicleta');
+const Bicicleta = require('../../models/bicicleta');
 
-exports.Bicicleta_list = (req, res) => {
-    res.status(200).json({
-        bicicletas: Bicicleta.allBicis
-    });
+exports.Bicicleta_list = async(req, res) => {
+    await Bicicleta.allBicis().then((response) => {
+        res.status(200).json({
+            bicis: response
+        })
+    })
 }
 
-exports.bicicletas_create = (req, res) => {
-    const bici = new Bicicleta(req.body.id, req.body.color, req.body.modelo);
-    bici.ubicacion = [req.body.lat, req.body.lng];
-    Bicicleta.add(bici);
-    res.status(200).json({
-        bicicleta: bici
-    });
+exports.bicicletas_create = async (req, res) => {
+    const bici = new Bicicleta({code: req.body.code, color: req.body.color, modelo: req.body.modelo, ubicacion: [req.body.lat, req.body.lng]})
+    await Bicicleta.add(bici).then((response) => {
+        res.status(200).json({
+            bici: response,
+        })
+    })
 }
 
-exports.bicicletas_delete = (req, res) => {
-    Bicicleta.removeById(req.body.id);
-    res.status(204).send();
+exports.bicicletas_delete = async(req, res) => {
+    await Bicicleta.removeByCode(req.body.code).then((response) => {
+        res.status(204).send();
+    })
 }
 
-exports.bicicletas_update = (req, res) => {
-    let corresponding_bici = Bicicleta.findById(req.body.id);
-    corresponding_bici.id = req.body.id;
-    corresponding_bici.color = req.body.color;
-    corresponding_bici.modelo = req.body.modelo;
-    corresponding_bici.ubicacion = [req.body.lat, req.body.lng];
-
-    res.status(200).json({
-        bicicleta: corresponding_bici
+exports.bicicletas_update = async(req, res) => {
+    await Bicicleta.findOneAndUpdate(
+        {code: req.body.code},
+        {color: req.body.color, modelo: req.body.modelo, lat: req.body.lat, lng: req.body.lng},
+        {new: true}
+    ).then((response) => {
+        res.status(200).json({
+            bicicleta: response
+        });
     });
-
 }
