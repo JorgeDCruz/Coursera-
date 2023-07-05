@@ -23,9 +23,7 @@ describe('Testing Bicicletas with Mongo: ', () => {
 
     describe('Bicicleta.createInstance', ()=>{
         it('La lista esta vacia', (done) => {
-            // Bicicleta.allBicis((err, bicis)=>{
-            //     console.log(bicis);
-            // })
+            //Las consultas de Mongoose ya no aceptan callbacks, la alternativa es utilizar "then" de esta manera:
             Bicicleta.allBicis().then((response) => {
                 expect(response.length).toBe(0);
                 done();
@@ -46,6 +44,52 @@ describe('Testing Bicicletas with Mongo: ', () => {
         }); 
     });
 
+    describe('Bicicleta.findByCode', ()=>{
+        it('Regresa la bici con codigo 1', (done) => {
+            Bicicleta.allBicis().then((bici_list) => {
+                expect(bici_list.length).toBe(0);
+                const a_bici = new Bicicleta({code: 1, color: "verde", modelo: "urbana"});
+                Bicicleta.add(a_bici).then(() => {
+                    const b_bici = new Bicicleta({code: 2, color: "rojo", modelo: "montaña"});
+                    Bicicleta.add(b_bici).then(() => {
+                        Bicicleta.findByCode(1).then((target_bici) => {
+                            expect(target_bici.code).toBe(1);
+                            expect(target_bici.color).toBe(a_bici.color);
+                            expect(target_bici.modelo).toBe(a_bici.modelo);
+                            done();
+                        });
+                    });
+                });
+            });           
+        }); 
+    });
+
+    describe('Bicicleta.removeByCode', ()=>{
+        it('Remueve la Bici con codigo 1', (done) => {
+            //Checamos que empiece vacia la lista
+            Bicicleta.allBicis().then((bici_list) => {
+                expect(bici_list.length).toBe(0);
+                const a_bici = new Bicicleta({code: 1, color: "verde", modelo: "urbana"});
+                //Añadimos una bici a la lista
+                Bicicleta.add(a_bici).then(() => {
+                    //Checamos que si se haya añadido la lista
+                    Bicicleta.allBicis().then((bici_list2) => {
+                        expect(bici_list2.length).toBe(1);
+                        //Removemos la bici con codigo 1
+                        Bicicleta.removeByCode(1).then(() => {
+                            //Checamos que se haya borrado de la lista
+                            Bicicleta.allBicis().then((bici_list3) => {
+                                expect(bici_list3.length).toBe(0);
+                                done();
+                            })
+                            
+                            
+                        });
+                    });
+                });
+            })   
+        }); 
+    });
 });
 
 // beforeEach(() => {

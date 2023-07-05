@@ -8,6 +8,8 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 const bicicletaRouter = require('./routes/bicicletas');
 const bicicletasAPIrouter = require('./routes/api/bicicletas');
+const usuariosAPIrouter = require('./routes/api/usuarios');
+
 var app = express();
 
 
@@ -42,6 +44,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/bicicletas', bicicletaRouter);
 app.use('/api/bicicletas', bicicletasAPIrouter);
+app.use('/api/usuarios', usuariosAPIrouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
