@@ -1,5 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+
+const uniqueValidator = require('mongoose-unique-validator');
+
 const Reserva = require('./reserva');
 const bcrypt = require('bcrypt');
 
@@ -21,6 +24,7 @@ const usuarioSchema = new Schema({
         trim: true,
         required: [true, 'El email es obligatorio'],
         lowercase: true,
+        unique: true,
         validate: [validateEmail, 'Por favor ingrese un email valido'],
         match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/]
     },
@@ -35,6 +39,9 @@ const usuarioSchema = new Schema({
         default: false
     }
 });
+
+//Añadimos la validación para que los emails sean únicos
+usuarioSchema.plugin(uniqueValidator, {message: 'El {PATH} ya existe con otro usuario'});
 
 usuarioSchema.pre('save', (next) => {
     if(this.isModified('password')){
