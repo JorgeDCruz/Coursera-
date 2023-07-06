@@ -9,6 +9,7 @@ var usersRouter = require('./routes/users');
 const bicicletaRouter = require('./routes/bicicletas');
 const bicicletasAPIrouter = require('./routes/api/bicicletas');
 const usuariosAPIrouter = require('./routes/api/usuarios');
+const mailer = require('../red-bicicletas/mailer/mailer');
 
 var app = express();
 
@@ -61,5 +62,7 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+
 
 module.exports = app;

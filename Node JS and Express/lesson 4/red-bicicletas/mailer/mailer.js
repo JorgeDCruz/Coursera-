@@ -1,11 +1,13 @@
 const nodemailer = require('nodemailer');
 
+require('dotenv').config();
+
 const transporter = nodemailer.createTransport({
     host: 'smtp.ethereal.email',
     port: 587,
     auth: {
-        user: 'clinton0@ethereal.email',
-        pass: 'KHGd1EVW5m6Yk3YDYk'
+        user: process.env.NODEMAILER_USER,
+        pass: process.env.NODEMAILER_PASSWORD
     }
 });
 
