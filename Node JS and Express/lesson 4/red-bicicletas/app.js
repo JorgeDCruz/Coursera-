@@ -5,11 +5,11 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+const usuariosRouter = require('./routes/usuarios');
 const bicicletaRouter = require('./routes/bicicletas');
 const bicicletasAPIrouter = require('./routes/api/bicicletas');
 const usuariosAPIrouter = require('./routes/api/usuarios');
-const mailer = require('../red-bicicletas/mailer/mailer');
+const tokenRouter = require('./routes/token');
 
 var app = express();
 
@@ -42,7 +42,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //Routes
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/usuarios', usuariosRouter);
+app.use('/token', tokenRouter);
+
 app.use('/bicicletas', bicicletaRouter);
 app.use('/api/bicicletas', bicicletasAPIrouter);
 app.use('/api/usuarios', usuariosAPIrouter);
