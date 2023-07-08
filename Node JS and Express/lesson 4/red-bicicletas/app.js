@@ -3,6 +3,8 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const passport = require('./config/passport');
+const session = require('express-session');
 
 var indexRouter = require('./routes/index');
 const usuariosRouter = require('./routes/usuarios');
@@ -11,8 +13,16 @@ const bicicletasAPIrouter = require('./routes/api/bicicletas');
 const usuariosAPIrouter = require('./routes/api/usuarios');
 const tokenRouter = require('./routes/token');
 
-var app = express();
+const store = new session.MemoryStore;
 
+var app = express();
+app.use(session({
+  cookie: {maxAge: 1000 * 60 * 60 * 240},
+  store: store,
+  saveUninitialized: true,
+  resave: true,
+  secret: 'red-bicis'
+}));
 
 require('dotenv').config();
 
@@ -38,6 +48,8 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
 //Routes
