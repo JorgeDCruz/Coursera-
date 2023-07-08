@@ -13,6 +13,7 @@ const bicicletasAPIrouter = require('./routes/api/bicicletas');
 const usuariosAPIrouter = require('./routes/api/usuarios');
 const tokenRouter = require('./routes/token');
 
+//La sesion se guardara localmente en el servidor
 const store = new session.MemoryStore;
 
 var app = express();
