@@ -12,6 +12,7 @@ const bicicletaRouter = require('./routes/bicicletas');
 const bicicletasAPIrouter = require('./routes/api/bicicletas');
 const usuariosAPIrouter = require('./routes/api/usuarios');
 const tokenRouter = require('./routes/token');
+const loginRouter = require('./routes/login');
 
 //La sesion se guardara localmente en el servidor
 const store = new session.MemoryStore;
@@ -54,6 +55,20 @@ app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
 //Routes
+app.use('/login', loginRouter);
+app.get('/logout', (req, res) => {
+  res.redirect('/');
+});
+
+app.get('/forgotPassword', (req, res) => {
+
+});
+
+app.post('/forgotPassword', (req, res) => {
+
+});
+
+
 app.use('/', indexRouter);
 app.use('/usuarios', usuariosRouter);
 app.use('/token', tokenRouter);

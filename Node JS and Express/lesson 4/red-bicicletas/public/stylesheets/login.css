@@ -1,3 +1,10 @@
+body#LoginForm{
+    background-image: url("https://images.unsplash.com/photo-1614851099511-773084f6911d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y29sb3JmdWwlMjBibHVyfGVufDB8fDB8fHww&w=1000&q=80");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
 .form-heading{
     color:aliceblue;
     font-size: 23px;
